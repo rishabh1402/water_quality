@@ -12,15 +12,12 @@ import pandas as pd
 app = Flask(__name__,template_folder='templates')
 
 def graph(city):
-    img = io.BytesIO()
     dp = pd.read_csv('./water.csv',encoding= 'unicode_escape')
     dp2 = dp[dp['District Name']==city].reset_index()
     sns.countplot(dp2['Quality Parameter'])
     plt.title('Water Quality Index', size=20)
-    plt.savefig(img, format='png')
-    img.seek(0)
-    plot_url = base64.b64encode(img.getvalue()).decode()
-    return plot_url
+    savefile = ''
+    plt.savefig('static/output.png')
 
 df = pd.read_csv('./water.csv',encoding= 'unicode_escape')
 
@@ -87,23 +84,11 @@ def check():
             chem = "Nitrate"
         else:
             chem = "Salt"
-        img = graph(city)
-        return render_template("success.html", p_text='The Dominant Chemical in the Water of your Area is  {}'.format(chem), image={ 'image': img })
+        graph(city)
+        return render_template("success.html", p_text='The Dominant Chemical in the Water of your Area is  {}'.format(chem))
     else:
         return render_template("index.html")
 
-
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-"""
-@app.route("/output.jpg")
-def plot_png(city):
-    graph(city)
-    filename = 'output.jpg'
-    return render_template("success.html",img = filename)
-"""
 
 if __name__ == "__main__":
     app.run(debug=True)
