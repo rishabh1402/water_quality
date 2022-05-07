@@ -12,7 +12,6 @@ import pandas as pd
 app = Flask(__name__,template_folder='templates')
 
 def graph(city):
-    os.remove("static/output.png")
     dp = pd.read_csv('./water.csv',encoding= 'unicode_escape')
     dp2 = dp[dp['District Name']==city].reset_index()
     sns.countplot(dp2['Quality Parameter'])
