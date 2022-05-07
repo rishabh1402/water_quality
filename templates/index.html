@@ -1,29 +1,126 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pollution-Pedia</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/PollutionPedia.png') }}"
+      sizes="32x32"
+      type="image/png"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/aos.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.theme.default.min.css') }}" />
 
-<head>
-<style>
-    img{
-        display: none;
-    }
-</style>
-</head>
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo-digital-trend.css') }}" />
+    <style>
+      .form {
+        padding: 10%;
+        font-family: "Maiandra GD";
+      }
+      input {
+        margin: 2%;
+        padding: 1%;
+        width: 50%;
+        text-align: center;
+      }
+      button {
+        margin: 2%;
+        padding: 1%;
+        width: 50%;
+        background-color: #057a8d;
+        border-radius: 15px;
+        font-size: 20px;
 
-<body background="bg.jpg">
-    <div class="container">
-        <div class="text">
-            <br> Please give your inputs
+        color: rgb(255, 255, 255);
+      }
+      button:hover {
+        color: rgb(0, 0, 0);
+        background-color: aliceblue;
+      }
+      .footer {
+        padding: 2%;
+        background-color: #057a8d;
+
+        text-align: center;
+      }
+      .footer p {
+        color: azure;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- MENU BAR -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="{{ url_for('home') }}">
+          <img src="{{ url_for('static', filename='images/PollutionPedia2.png') }}" width="230" alt="" />
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a href="#about" class="nav-link smoothScroll">About</a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link smoothScroll">Detect Air Pollution</a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link smoothScroll"
+                >Detect Water Pollution</a
+              >
+            </li>
+          </ul>
         </div>
-        <br>
-        <br>
+      </div>
+    </nav>
+
+    <section class="form">
+      <center>
         <form action="{{ url_for('check')}}" method="post">
-                <input name="state">
-                <input name="city">
-                <input type="submit">
-            <br>
-            <br>
+          <input name="state" placeholder="Enter Your State" type="text" />
+          <br />
+          <input name="city" placeholder="Enter Your City" type="text" />
+          <br />
+          <button type="submit">Submit</button>
         </form>
-    </div>
+      </center>
+    </section>
 
-</body>
+    <footer class="footer">
+      <p>
+        Copyright &copy; 2022 Dev-Cafe
+        <a rel="nofollow noopener" href="">Hackathon : DELTA'22 </a>
+      </p>
+    </footer>
 
+    <!-- SCRIPTS -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/smoothscroll.js"></script>
+    <script src="js/custom.js"></script>
+  </body>
 </html>
