@@ -1,6 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, Response, request, session
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+import matplotlib
+matplotlib.use('Agg')
 import io
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -10,13 +12,13 @@ import pandas as pd
 app = Flask(__name__,template_folder='templates')
 
 def graph(city):
-    dp = pd.read_csv('D:/Hackathons/Delta/water/water.csv',encoding= 'unicode_escape')
+    dp = pd.read_csv('./water.csv',encoding= 'unicode_escape')
     dp2 = dp[dp['District Name']==city].reset_index()
     sns.countplot(dp2['Quality Parameter'])
     plt.title('Water Quality Index', size=20)
-    plt.savefig("D:/Hackathons/Delta/water/static/output.jpg")
+    plt.savefig("./static/output.jpg")
 
-df = pd.read_csv('D:/Hackathons/Delta/water/water.csv',encoding= 'unicode_escape')
+df = pd.read_csv('./water.csv',encoding= 'unicode_escape')
 
 #Encoding The IteM Type Column
 from sklearn.preprocessing import LabelEncoder
@@ -62,26 +64,29 @@ def home():
 
 @app.route("/check", methods=["GET", "POST"])
 def check():
-    state = request.form['state']
-    state = state.upper()
-    city = request.form['city']
-    city = city.upper()
-    features = []
-    features.append(state)
-    features.append(city)
-    output = predict(features)
-    if output == 0:
-        chem = "Arsenic"
-    elif output == 1:
-        chem = "Fluoride"
-    elif output == 2:
-        chem = "Iron"
-    elif output == 3:
-        chem = "Nitrate"
+    if request.method == 'POST':
+        state = request.form['state']
+        state = state.upper()
+        city = request.form['city']
+        city = city.upper()
+        features = []
+        features.append(state)
+        features.append(city)
+        output = predict(features)
+        if output == 0:
+            chem = "Arsenic"
+        elif output == 1:
+            chem = "Fluoride"
+        elif output == 2:
+            chem = "Iron"
+        elif output == 3:
+            chem = "Nitrate"
+        else:
+            chem = "Salt"
+        graph(city)
+        return render_template("success.html", p_text='The Dominant Chemical in the Water of your Area is  {}'.format(chem))
     else:
-        chem = "Salt"
-    graph(city)
-    return render_template("success.html", p_text='The Dominant Chemical in the Water of your Area is  {}'.format(chem))    
+        return render_template("index.html")
 
 
 @app.route("/about")
