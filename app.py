@@ -16,7 +16,7 @@ def graph(city):
     dp2 = dp[dp['District Name']==city].reset_index()
     sns.countplot(dp2['Quality Parameter'])
     plt.title('Water Quality Index', size=20)
-    plt.savefig("static/output.jpg")
+    plt.savefig("static/output.png")
 
 df = pd.read_csv('./water.csv',encoding= 'unicode_escape')
 
