@@ -57,6 +57,11 @@
       .result {
         min-height: 80vh;
       }
+      .text{
+        color: orange;
+        font-size: 25px;
+        padding: 1%;
+      }
     </style>
   </head>
   <body>
@@ -98,14 +103,14 @@
     </nav>
 
     <section class="result">
+       <center>
       <div class="container">
         <div class="text">
           <img src="{{ url_for('static', filename='output.jpg') }}" />
         </div>
         <br />
       </div>
-      <center>
-        {{ p_text }}
+         <p class="text"> {{ p_text }} </p>
       </center>
     </section>
 
